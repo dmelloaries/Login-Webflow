@@ -1,6 +1,7 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import connectDB from "./db/index";
+import authRoutes from "./routes/authRoutes";
 
 dotenv.config();
 
@@ -9,6 +10,18 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
+app.get("/", (req: Request, res: Response) => {
+  res.send("Server is live");
+});
+
+app.use("/api/auth", authRoutes);
+
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  res
+    .status(500)
+    .json({ message: "Something went wrong, please try again later." });
+});
+
 connectDB()
   .then(() => {
     app.listen(port, () => {
@@ -16,10 +29,8 @@ connectDB()
     });
   })
   .catch((err) => {
-    console.error("DB connection failed", err);
-    process.exit(1); 
+    console.error("DB connection failed:", err);
+    process.exit(1);
   });
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Server is live");
-});
+export default app;

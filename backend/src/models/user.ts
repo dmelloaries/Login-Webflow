@@ -7,6 +7,8 @@ interface UserX extends Document {
   lastname: string;
   email: string;
   password: string;
+  otp?: string;
+  createdAt?: TimeRanges
   comparePassword(enteredPassword: string): Promise<boolean>;
 }
 
@@ -33,6 +35,11 @@ const userSchema: Schema<UserX> = new Schema(
     password: {
       type: String,
       required: true,
+      minlength: 6,
+    },
+    otp: {
+      type: String,
+      required: false,
       minlength: 6,
     },
   },
