@@ -1,21 +1,14 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useIsMobile from "../hook/useIsMobile";
 import image from "../assets/signup.jpg";
-import hide from "../assets/hide.png";
-import see from "../assets/see.png";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import SignupForm from "../utils/SignupForm";
+import OtpForm from "../utils/OtpForm";
 
 const Signup = () => {
   const navigate = useNavigate();
-
-  const handleNavigateToLogin = () => {
-    navigate("/login");
-  };
-
   const isMobile = useIsMobile();
-  const [showPassword, setShowPassword] = useState(false);
-  const [showRetypePassword, setShowRetypePassword] = useState(false);
   const [signupSuccess, setSignupSuccess] = useState(false);
   const [otp, setOtp] = useState("");
   const [formData, setFormData] = useState({
@@ -27,6 +20,10 @@ const Signup = () => {
   });
   const [error, setError] = useState("");
   const [otpError, setOtpError] = useState("");
+
+  const handleNavigateToLogin = () => {
+    navigate("/login");
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -56,7 +53,7 @@ const Signup = () => {
         setSignupSuccess(true);
       }
     } catch (err) {
-      setError("Email Already Exists,Try another or Signin");
+      setError("Email Already Exists, Try another or Sign in");
     }
   };
 
@@ -67,7 +64,6 @@ const Signup = () => {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/auth/verify-otp`,
-
         {
           email: formData.email,
           otp: parseInt(otp),
@@ -114,138 +110,19 @@ const Signup = () => {
           </h1>
 
           {!signupSuccess ? (
-            <form className="space-y-5" onSubmit={handleSignup}>
-              <div>
-                <input
-                  id="firstName"
-                  type="text"
-                  placeholder="First Name"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border-b-2 border-gray-300 focus:outline-none focus:ring-0 placeholder-gray-500"
-                  required
-                />
-              </div>
-              <div>
-                <input
-                  id="lastName"
-                  type="text"
-                  placeholder="Last Name"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border-b-2 border-gray-300 focus:outline-none focus:ring-0 placeholder-gray-500"
-                  required
-                />
-              </div>
-              <div className="relative">
-                <input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Set Password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border-b-2 border-gray-300 focus:outline-none focus:ring-0 placeholder-gray-500"
-                  required
-                />
-                <div
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  <img
-                    src={showPassword ? hide : see}
-                    alt={showPassword ? "Hide Password" : "Show Password"}
-                    className="h-8 w-8"
-                  />
-                </div>
-              </div>
-              <div className="relative">
-                <input
-                  id="retypePassword"
-                  type={showRetypePassword ? "text" : "password"}
-                  placeholder="Retype Password"
-                  value={formData.retypePassword}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border-b-2 border-gray-300 focus:outline-none focus:ring-0 placeholder-gray-500"
-                  required
-                />
-                <div
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
-                  onClick={() => setShowRetypePassword(!showRetypePassword)}
-                >
-                  <img
-                    src={showRetypePassword ? hide : see}
-                    alt={showRetypePassword ? "Hide Password" : "Show Password"}
-                    className="h-8 w-8"
-                  />
-                </div>
-              </div>
-              <div>
-                <select
-                  id="contact-mode"
-                  className="w-full px-4 py-3 border-b-2 border-gray-300 focus:outline-none focus:ring-0 text-gray-500"
-                  required
-                >
-                  <option value="">Contact Mode</option>
-                  <option className="bg-white hover:bg-purple-800">
-                    Email
-                  </option>
-                </select>
-              </div>
-
-              <div>
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="Enter Email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border-b-2 border-gray-300 focus:outline-none focus:ring-0 placeholder-gray-500"
-                  required
-                />
-              </div>
-              {error && <p className="text-red-500 text-sm">{error}</p>}
-              <button
-                type="submit"
-                className="w-full font-Inter bg-[#3A244A] text-white py-3 rounded-2xl font-bold hover:bg-purple-950 transition duration-300"
-              >
-                Sign Up
-              </button>
-            </form>
+            <SignupForm
+              formData={formData}
+              handleChange={handleChange}
+              handleSignup={handleSignup}
+              error={error}
+            />
           ) : (
-            <form className="space-y-5" onSubmit={handleOtpSubmit}>
-              <h2 className="text-xl font-bold text-center text-[#3A244A]">
-                Enter the 4-digit OTP sent to your email
-              </h2>
-              <div className="flex justify-center space-x-2">
-                {[0, 1, 2, 3].map((index) => (
-                  <input
-                    key={index}
-                    type="text"
-                    maxLength="1"
-                    className="w-12 h-12 text-center border-b-2 border-gray-300 focus:outline-none focus:ring-0 text-lg placeholder-gray-500"
-                    value={otp[index] || ""}
-                    onChange={(e) => {
-                      const val = e.target.value;
-                      if (!isNaN(val) && val.length <= 1) {
-                        setOtp((prevOtp) => {
-                          const newOtp = prevOtp.split("");
-                          newOtp[index] = val;
-                          return newOtp.join("");
-                        });
-                      }
-                    }}
-                    required
-                  />
-                ))}
-              </div>
-              {otpError && <p className="text-red-500 text-sm">{otpError}</p>}
-              <button
-                type="submit"
-                className="w-full font-Inter bg-[#3A244A] text-white py-3 rounded-2xl font-bold hover:bg-purple-950 transition duration-300"
-              >
-                Verify OTP
-              </button>
-            </form>
+            <OtpForm
+              otp={otp}
+              setOtp={setOtp}
+              handleOtpSubmit={handleOtpSubmit}
+              otpError={otpError}
+            />
           )}
         </div>
       </div>
