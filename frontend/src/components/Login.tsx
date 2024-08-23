@@ -3,8 +3,17 @@ import useIsMobile from "../hook/useIsMobile";
 import image from "../assets/signup.jpg";
 import hide from "../assets/hide.png";
 import see from "../assets/see.png";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+
+  const navigate = useNavigate();
+
+  
+  const handlesignup = () => {
+    navigate("/signup");
+  };
+
   const isMobile = useIsMobile();
   const [showPassword, setShowPassword] = useState(false);
   
@@ -17,7 +26,7 @@ const Login = () => {
             <img
               src={image}
               alt="Signup Illustration"
-              className="h-120 w-120 object-cover"
+              className=" object-cover"
             />
           </div>
         )}
@@ -64,7 +73,7 @@ const Login = () => {
             <button className="w-full  font-Inter bg-[#3A244A] text-white py-3 rounded-2xl font-bold hover:bg-purple-950 transition duration-300">
               Sign In
             </button>
-            <button className="w-full font-Inter border-2 border-[#3A244A] bg-white  py-3 rounded-2xl font-bold hover:bg-slate-200 transition duration-300">
+            <button className="w-full font-Inter border-2 border-[#3A244A] bg-white  py-3 rounded-2xl font-bold hover:bg-slate-200 transition duration-300" onClick={handlesignup}>
               Sign Up
             </button>
           </form>
