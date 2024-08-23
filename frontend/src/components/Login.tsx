@@ -3,20 +3,50 @@ import useIsMobile from "../hook/useIsMobile";
 import image from "../assets/signup.jpg";
 import hide from "../assets/hide.png";
 import see from "../assets/see.png";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
 
-  
-  const handlesignup = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSignup = () => {
     navigate("/signup");
   };
 
-  const isMobile = useIsMobile();
-  const [showPassword, setShowPassword] = useState(false);
-  
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/auth/login`,
+        {
+          email: email,
+          password: password,
+        }
+      );
+
+      if (response.status === 200) {
+        const { token } = response.data;
+
+        if (token) {
+          localStorage.setItem("token", token);
+
+          navigate("/home");
+        } else {
+          setError("Token not found in the response.");
+        }
+      }
+    } catch (err) {
+      setError("Login failed. Please check your credentials and try again.");
+    }
+  };
 
   return (
     <div className="flex justify-center mt-12">
@@ -26,7 +56,7 @@ const Login = () => {
             <img
               src={image}
               alt="Signup Illustration"
-              className=" object-cover"
+              className="object-cover"
             />
           </div>
         )}
@@ -41,13 +71,16 @@ const Login = () => {
             </span>
           </h1>
 
-          <form className="space-y-5">
+          <form className="space-y-5" onSubmit={handleLogin}>
             <div>
               <input
-                id="Email"
-                type="text"
+                id="email"
+                type="email"
                 placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-3 border-b-2 border-gray-300 focus:outline-none focus:ring-0 placeholder-gray-500"
+                required
               />
             </div>
 
@@ -56,7 +89,10 @@ const Login = () => {
                 id="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-3 border-b-2 border-gray-300 focus:outline-none focus:ring-0 placeholder-gray-500"
+                required
               />
               <div
                 className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
@@ -70,15 +106,23 @@ const Login = () => {
               </div>
             </div>
 
-            <button className="w-full  font-Inter bg-[#3A244A] text-white py-3 rounded-2xl font-bold hover:bg-purple-950 transition duration-300">
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+
+            <button
+              type="submit"
+              className="w-full font-Inter bg-[#3A244A] text-white py-3 rounded-2xl font-bold hover:bg-purple-950 transition duration-300"
+            >
               Sign In
             </button>
-            <button className="w-full font-Inter border-2 border-[#3A244A] bg-white  py-3 rounded-2xl font-bold hover:bg-slate-200 transition duration-300" onClick={handlesignup}>
+            <button
+              type="button"
+              className="w-full font-Inter border-2 border-[#3A244A] bg-white py-3 rounded-2xl font-bold hover:bg-slate-200 transition duration-300"
+              onClick={handleSignup}
+            >
               Sign Up
             </button>
           </form>
         </div>
-        
       </div>
     </div>
   );

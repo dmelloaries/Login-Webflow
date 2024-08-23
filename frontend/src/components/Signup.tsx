@@ -72,7 +72,7 @@ const Signup = () => {
 
       if (response.status === 200) {
         console.log("OTP verified successfully");
-        navigate("/home");
+        navigate("/login");
       }
     } catch (err) {
       setOtpError("Invalid OTP. Please try again.");

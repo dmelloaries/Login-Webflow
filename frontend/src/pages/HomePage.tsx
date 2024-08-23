@@ -1,8 +1,7 @@
 import React from "react";
-import Navbar from "./Navbar";
+import Navbar from "../components/Navbar";
 
 const HomePage = () => {
-
   return (
     <div className="bg-black min-h-screen flex flex-col">
       <div className="bg-black">
@@ -40,16 +39,36 @@ const HomePage = () => {
 
         <div className="mt-10 bg-yellow-400 py-4 rounded-2xl mx-4 md:mx-20 lg:mx-32">
           <div className="flex flex-wrap justify-center space-x-4">
-            <button className="text-black text-lg font-bold px-5 transition">Fastag</button>
-            <button className="text-black text-lg font-bold transition">RakshaQR</button>
-            <button className="text-black text-lg font-bold transition">RSA</button>
-            <button className="text-black text-lg font-bold transition">Insurance</button>
-            <button className="text-black text-lg font-bold transition">Raksha-Agent-Order</button>
-            <button className="text-black text-lg font-bold transition">EV Charging</button>
-            <button className="text-black text-lg font-bold transition">GPS</button>
-            <button className="text-black text-lg font-bold transition">RakshaDial</button>
-            <button className="text-black text-lg font-bold px-4 transition">Biking Events</button>
-            <button className="text-black text-lg font-bold px-4 transition">Store</button>
+            <button className="text-black text-lg font-bold px-5 transition">
+              Fastag
+            </button>
+            <button className="text-black text-lg font-bold transition">
+              RakshaQR
+            </button>
+            <button className="text-black text-lg font-bold transition">
+              RSA
+            </button>
+            <button className="text-black text-lg font-bold transition">
+              Insurance
+            </button>
+            <button className="text-black text-lg font-bold transition">
+              Raksha-Agent-Order
+            </button>
+            <button className="text-black text-lg font-bold transition">
+              EV Charging
+            </button>
+            <button className="text-black text-lg font-bold transition">
+              GPS
+            </button>
+            <button className="text-black text-lg font-bold transition">
+              RakshaDial
+            </button>
+            <button className="text-black text-lg font-bold px-4 transition">
+              Biking Events
+            </button>
+            <button className="text-black text-lg font-bold px-4 transition">
+              Store
+            </button>
           </div>
         </div>
       </div>
