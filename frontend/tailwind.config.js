@@ -1,20 +1,3 @@
-// /** @type {import('tailwindcss').Config} */
-// module.exports = {
-  // content: [
-  //   "./index.html",
-  //   "./src/**/*.{js,ts,jsx,tsx}",
-  //  ],
-//   theme: {
-//     extend: {
-//       fontFamily: {
-//         sans: ['Poppins', 'sans-serif'],
-//       },
-//     },
-//   },
-//   plugins: [],
-// }
-
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -28,9 +11,12 @@ module.exports = {
         inter: ['Inter', 'sans-serif'],
       },
       colors: {
+        'custom-border': '#3A244A',
+        
         'primary-orange': '#FF5722',
       }
     },
   },
   plugins: [],
 }
+
