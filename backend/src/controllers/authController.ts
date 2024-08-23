@@ -5,7 +5,7 @@ import { sendOtp } from "../utils/sendOtp";
 
 export const signup = async (req: Request, res: Response) => {
   const { firstname, lastname, email, password } = req.body;
-  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+  const otp = Math.floor(1000 + Math.random() * 9000).toString(); // otp of 4 digits 
 
   try {
     let user = await User.findOne({ email });
@@ -86,7 +86,6 @@ export const getUserDetails = async (req: Request, res: Response) => {
       createdAt: user.createdAt,
     });
   } catch (err) {
-    
     return res.status(500).json({ message: "Server error" });
   }
 };

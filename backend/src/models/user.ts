@@ -40,7 +40,7 @@ const userSchema: Schema<UserX> = new Schema(
     otp: {
       type: String,
       required: false,
-      minlength: 6,
+      minlength: 4,
     },
   },
   {

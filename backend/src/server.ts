@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import connectDB from "./db/index";
 import authRoutes from "./routes/authRoutes";
 
@@ -8,6 +9,14 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(
+  cors({
+    origin: ["http://localhost:5173"],
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  })
+);
 app.use(express.json());
 
 app.get("/", (req: Request, res: Response) => {
