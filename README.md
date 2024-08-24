@@ -48,3 +48,21 @@ npm start
 ##### EMAIL_USER=    
 ##### EMAIL_PASS=
 
+__________________________________________________________________________________
+
+## Technology Stack
+
+### Frontend
+- **Framework**: React.js (TypeScript)
+- **Styling**: Tailwind CSS
+- **Deployment**: Netlify
+
+### Backend
+- **Framework**: Node.js (TypeScript)
+- **Database**: MongoDB
+- **Deployment**: Render
+
+### Other Tools
+- **Version Control**: Git (GitHub)
+
+
