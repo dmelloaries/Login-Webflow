@@ -39,7 +39,7 @@ npm install
 npm start
 ```
 
-### Create a .env file in the frontend directory with the following content:
+### Create a .env file in the backend directory with the following content:
 ##### PORT=5000
 ##### MONGODB_URL=  
 ##### JWT_SECRET=   
