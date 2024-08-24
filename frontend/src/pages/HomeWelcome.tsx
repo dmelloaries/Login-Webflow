@@ -8,18 +8,16 @@ const HomeWelcome = () => {
   
   
   const [userDetails, setUserDetails] = useState({
-    firstname: "",
-    lastname: "",
+    firstName: "", 
+    lastName: "",  
     email: "",
     createdAt: "",
   });
-  const [error, setError] = useState<string | null>(null); 
 
   const fetchUserDetails = async () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      setError("Token not found. Please log in again.");
       navigate("/");
       return;
     }
@@ -35,11 +33,10 @@ const HomeWelcome = () => {
       );
 
       if (response.status === 200) {
-        setUserDetails(response.data);
+        setUserDetails(response.data); 
       }
     } catch (error) {
       console.error("Error fetching user details:", error);
-      setError("Failed to fetch user details. Please try again.");
       navigate("/"); // Navigate to home if there's an error fetching details
     }
   };
@@ -59,7 +56,7 @@ const HomeWelcome = () => {
           <h2 className="font-bold text-white text-3xl md:text-5xl lg:text-4xl">
             Welcome <span className="text-yellow-400">Home</span>
             <br />
-           This is mobility and highway wayside amenities platform.
+            This is a mobility and highway wayside amenities platform.
           </h2>
         </div>
 
