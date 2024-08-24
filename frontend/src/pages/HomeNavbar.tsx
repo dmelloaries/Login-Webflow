@@ -1,8 +1,14 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 
-const HomeNavbar = ({ userDetails }) => {
+interface UserDetails {
+  
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+
+const HomeNavbar = ({ userDetails }: { userDetails: UserDetails }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {

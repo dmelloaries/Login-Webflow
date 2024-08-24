@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import HomeNavbar from "./HomeNavbar";
-import ProfilePage from "./ProfilePage";
-import HomePage from "./HomePage";
 
 const HomeWelcome = () => {
   const navigate = useNavigate();
+  
+  
   const [userDetails, setUserDetails] = useState({
     firstname: "",
     lastname: "",
     email: "",
     createdAt: "",
   });
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null); 
 
   const fetchUserDetails = async () => {
     const token = localStorage.getItem("token");
@@ -51,7 +51,7 @@ const HomeWelcome = () => {
   return (
     <div className="bg-black min-h-screen flex flex-col">
       <div className="bg-black">
-        <HomeNavbar  userDetails={userDetails} error={error} />
+        <HomeNavbar userDetails={userDetails} />
       </div>
 
       <div className="min-h-screen flex flex-col items-center text-center font-Inter">

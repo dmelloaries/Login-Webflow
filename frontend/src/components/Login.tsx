@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import useIsMobile from "../hook/useIsMobile";
 import image from "../assets/signup.jpg";
 import hide from "../assets/hide.png";
@@ -19,7 +19,7 @@ const Login = () => {
     navigate("/signup");
   };
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
 
@@ -43,7 +43,7 @@ const Login = () => {
           setError("Token not found in the response.");
         }
       }
-    } catch (err) {
+    } catch (e) {
       setError("Login failed. Please check your credentials and try again.");
     }
   };

@@ -1,12 +1,24 @@
-import React, { useRef } from "react";
+import { useRef, ChangeEvent, KeyboardEvent } from "react";
 
-const OtpForm = ({ otp, setOtp, handleOtpSubmit, otpError }) => {
-  const inputRefs = useRef([]);
+interface OtpFormProps {
+  otp: string;
+  setOtp: React.Dispatch<React.SetStateAction<string>>;
+  handleOtpSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  otpError: string | null;
+}
 
-  const handleChange = (e, index) => {
+const OtpForm: React.FC<OtpFormProps> = ({
+  otp,
+  setOtp,
+  handleOtpSubmit,
+  otpError,
+}) => {
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
     const val = e.target.value;
 
-    if (!isNaN(val) && val.length <= 1) {
+    if (!isNaN(Number(val)) && val.length <= 1) {
       setOtp((prevOtp) => {
         const newOtp = prevOtp.split("");
         newOtp[index] = val;
@@ -14,16 +26,16 @@ const OtpForm = ({ otp, setOtp, handleOtpSubmit, otpError }) => {
       });
 
       if (val && index < 3) {
-        inputRefs.current[index + 1].focus();
+        inputRefs.current[index + 1]?.focus();
       }
     }
   };
 
-  const handleKeyDown = (e, index) => {
-    const val = e.target.value;
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>, index: number) => {
+    const val = e.currentTarget.value;
 
     if (e.key === "Backspace" && !val && index > 0) {
-      inputRefs.current[index - 1].focus();
+      inputRefs.current[index - 1]?.focus();
     }
   };
 
@@ -38,7 +50,7 @@ const OtpForm = ({ otp, setOtp, handleOtpSubmit, otpError }) => {
             key={index}
             ref={(el) => (inputRefs.current[index] = el)}
             type="text"
-            maxLength="1"
+            maxLength={1}
             className="w-12 h-12 text-center border-b-2 border-gray-300 focus:outline-none focus:ring-0 text-lg placeholder-gray-500"
             value={otp[index] || ""}
             onChange={(e) => handleChange(e, index)}

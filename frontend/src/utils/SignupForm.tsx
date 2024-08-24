@@ -1,8 +1,26 @@
-import React, { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import hide from "../assets/hide.png";
 import see from "../assets/see.png";
 
-const SignupForm = ({ formData, handleChange, handleSignup, error }) => {
+interface SignupFormProps {
+  formData: {
+    firstName: string;
+    lastName: string;
+    password: string;
+    retypePassword: string;
+    email: string;
+  };
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleSignup: (e: FormEvent<HTMLFormElement>) => void;
+  error: string;
+}
+
+const SignupForm: React.FC<SignupFormProps> = ({
+  formData,
+  handleChange,
+  handleSignup,
+  error,
+}) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showRetypePassword, setShowRetypePassword] = useState(false);
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import useIsMobile from "../hook/useIsMobile";
 import image from "../assets/signup.jpg";
@@ -25,11 +25,11 @@ const Signup = () => {
     navigate("/login");
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  const handleSignup = async (e) => {
+  const handleSignup = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
 
@@ -57,7 +57,7 @@ const Signup = () => {
     }
   };
 
-  const handleOtpSubmit = async (e) => {
+  const handleOtpSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setOtpError("");
 
@@ -87,7 +87,7 @@ const Signup = () => {
             <img
               src={image}
               alt="Signup Illustration"
-              className=" object-cover"
+              className="object-cover"
             />
           </div>
         )}
