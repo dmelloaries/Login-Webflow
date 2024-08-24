@@ -7,14 +7,19 @@ import authRoutes from "./routes/authRoutes";
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: [
+      "http://localhost:5173",
+      
+      "https://main--highway-delite-frontend.netlify.app",
+    ],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     preflightContinue: false,
     optionsSuccessStatus: 204,
+    //allowedHeaders: ["Access-Control-Allow-Origin"],
   })
 );
 app.use(express.json());
