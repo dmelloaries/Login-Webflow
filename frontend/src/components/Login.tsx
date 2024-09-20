@@ -44,6 +44,7 @@ const Login = () => {
         }
       }
     } catch (e) {
+      console.log(e);
       setError("Login failed. Please check your credentials and try again.");
     }
   };
